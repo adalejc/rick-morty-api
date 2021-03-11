@@ -1,0 +1,23 @@
+{
+  "scripts": {
+    "build": "rimraf dist && rollup -c rollup.config.js",
+    "start:build": "npm run build && web-dev-server --root-dir dist --app-index index.html --open --compatibility none",
+    "start": "web-dev-server"
+  },
+  "devDependencies": {
+    "@open-wc/building-rollup": "^1.9.4",
+    "deepmerge": "^4.2.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.41.1",
+    "@web/dev-server": "^0.1.8"
+  },
+  "name": "rick-morty-api",
+  "version": "0.0.0",
+  "description": "Webcomponent rick-morty-api following open-wc recommendations",
+  "author": "rick-morty-api",
+  "license": "MIT",
+  "dependencies": {
+    "lit-html": "^1.3.0",
+    "lit-element": "^2.4.0"
+  }
+}
