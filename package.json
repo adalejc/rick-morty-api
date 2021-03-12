@@ -6,10 +6,11 @@
   },
   "devDependencies": {
     "@open-wc/building-rollup": "^1.9.4",
+    "@web/dev-server": "^0.1.8",
     "deepmerge": "^4.2.2",
     "rimraf": "^3.0.2",
     "rollup": "^2.41.1",
-    "@web/dev-server": "^0.1.8"
+    "rollup-plugin-copy": "^3.4.0"
   },
   "name": "rick-morty-api",
   "version": "0.0.0",
