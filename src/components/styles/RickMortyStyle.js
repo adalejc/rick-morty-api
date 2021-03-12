@@ -37,6 +37,10 @@ export default css`
        width: 90%;
      }
 
+     modal-lit {
+       z-index: 99;
+     }
+
      @media (max-width: 700px) {
       .card { 
         width: 100%;

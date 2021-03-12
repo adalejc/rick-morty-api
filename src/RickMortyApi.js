@@ -1,6 +1,10 @@
 import {LitElement, html, css } from 'lit-element';
+
 import './components/GetData';
 import './components/ApiTemplate';
+import './components/modal-lit';
+
+
 import  styles from './components/styles/RickMortyStyle'
 
 export class RickMortyApi extends LitElement {
@@ -10,7 +14,8 @@ export class RickMortyApi extends LitElement {
 
   static get properties() {
     return {
-      wiky: { type: Array}
+      wiky: { type: Array},
+      personaje: { type: Object }
     };
   }
 
@@ -22,7 +27,7 @@ export class RickMortyApi extends LitElement {
     super();
     this.wiky = [];
     this.addEventListener('api-data', event => {
-      let { detail: { data: { results: data } }  } = event;
+      let { detail: { results: data } } = event;
       this._dataFormat(data);
     });
   }
@@ -32,11 +37,11 @@ export class RickMortyApi extends LitElement {
   }
 
   _dataFormat(data) {
-
     let characters = []
     characters = data.map(personaje => {
-      let { image, name, species, status } = personaje
+      let { id, image, name, species, status } = personaje
       return {
+        id,
         image,
         name,
         species,
@@ -50,8 +55,11 @@ export class RickMortyApi extends LitElement {
 
   render() {
     return html`
-    <get-data id="api"></get-data>
-    <div>
+    <div class="container">
+      <get-data id="api" @character="${this.showCharacter}"></get-data>
+      <modal-lit>
+        ${this.getModalTemplate}
+      </modal-lit>
       <api-template></api-template>
       <div class="container-cards">
         ${this.dateTemplate}
@@ -63,8 +71,8 @@ export class RickMortyApi extends LitElement {
   get dateTemplate() {
     return html`
       ${this.wiky.map(item => html`
-        <div class="card">
-          <div class="card-content">
+        <div class="card" @click="${() => this.getCharacterById(item.id)}">
+          <div id="${item.id}" class="card-content">
             <h2>${item.name}</h2>
             <img src="${item.image}" loading="lazy">
             <p>${ item.species} | ${item.status }</p>
@@ -72,5 +80,43 @@ export class RickMortyApi extends LitElement {
         </div>
       `)}
     `;
+  }
+
+  getCharacterById(id) {
+    if (id) {
+      this.shadowRoot.querySelector('get-data').getCharacterById(id);
+    }
+  }
+
+  get getModalTemplate() {
+    return html`
+      ${this.personaje ? 
+      html`
+        <div>
+          <img src="${this.personaje.image}">
+          <div><strong>Name: </strong><small>${this.personaje.name}</small></div>
+          <div><strong>Status: </strong><small>${this.personaje.status}</small></div>
+          <div><strong>Species: </strong><small>${this.personaje.species}</small></div>
+          <div><strong>Origin: </strong><small>${this.personaje.origin.name}</small></div>
+          <div><strong>Location: </strong><small>${this.personaje.location.name}</small></div>
+          <div><strong>Gender: </strong><small>${this.personaje.gender}</small></div>
+      </div>`:
+      html``  
+    }`;
+    
+  }
+
+  showCharacter(event) {
+    const { detail } = event;
+    this.personaje = detail;
+    this.openModal();
+  }
+
+  openModal() {
+    this.shadowRoot.querySelector('modal-lit').openModal();
+  }
+
+  closeModal() {
+    this.shadowRoot.querySelector('modal-lit').closeModal();
   }
 }

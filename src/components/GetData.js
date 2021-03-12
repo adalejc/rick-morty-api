@@ -8,35 +8,44 @@ export class GetData extends LitElement {
 
   static get properties() {
     return {
-      url: { type: String },
-      method: { type: String }
+      apiUrl: { type: String },
+      metho: { type: String }
     }
   }
 
   constructor() {
     super();
-    this.url = "https://rickandmortyapi.com/api/character";
-    this.method = "GET";
-  }
-
-  _sendData(data) {
-    //console.log(data);
-    this.dispatchEvent(new CustomEvent('api-data', {
-      detail: { data },
-      bubbles: true,
-      composed: true
-    }));
+    this.apiUrl = "https://rickandmortyapi.com/api/character";
+    this.metho = "GET";
   }
 
   getData() {
-    console.log(this.url);
-    fetch(this.url, { method: this.metho})
+    fetch(this.apiUrl, { method: this.metho })
       .then( response => {
         if (response.ok ) return response.json();
         return Promise.reject(response)
       })
-        .then(data => this._sendData(data))
+        .then(data => this._sendData('api-data', data))
         .catch(error => console.warn('Shomething went wront', error))
+  }
+
+  getCharacterById(id) {
+    const url = `${this.apiUrl}/${id}`;
+    fetch(url, { method: this.metho })
+      .then(response => {
+        if (response.ok) return response.json();
+        return Promise.reject(response)
+      })
+      .then(data => this._sendData('character',data))
+      .catch(error => console.log('Shomethig went wront', error))
+  }
+
+  _sendData(customEvent, data) {
+    this.dispatchEvent(new CustomEvent(customEvent, {
+      detail: data ,
+      bubbles: true,
+      composed: true
+    }));
   }
 
 }

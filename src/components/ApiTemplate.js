@@ -12,11 +12,13 @@ export class ApiTemplate extends LitElement {
 
   render() {
     return html`
-      <div class="container">
+      <div class="container" >
         <h1>The <strong class="title">Rick and Morty</strong>API</h1>
         <p class="title">LitElement</p>
       </div>
     `;
   }
+
+  
 }
 customElements.define(ApiTemplate.is, ApiTemplate);
