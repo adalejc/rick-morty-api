@@ -23,29 +23,25 @@ export class ModalLit extends LitElement {
       cursor: pointer;
     }
 
-    #modal {
-      background-color: rgba(0, 0, 0, 0.8);
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      
-      
-      transition: all 1s;
-    }
-
     .hide {
       opacity: 0;
       pointer-events: none;
     }
 
     .modal-container {
-      position: absolute;
-    background: black;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.8);
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      transition: all 1s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
     }
 
     .show-modal {
