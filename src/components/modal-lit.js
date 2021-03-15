@@ -79,22 +79,22 @@ export class ModalLit extends LitElement {
   openModal() {
     this.shadowRoot.getElementById('modal').classList.remove('hide');
     this.shadowRoot.getElementById('modal').classList.add('show-modal');
+    this._showEmmitModal(true);
   }
 
   closeModal() {
     this.shadowRoot.getElementById('modal').classList.remove('show-modal');
     this.shadowRoot.getElementById('modal').classList.add('hide');
+    this._showEmmitModal(false);
   }
 
-  _showEmmitModal() {
+  _showEmmitModal(value) {
+    this.enableModal = value;
     this.dispatchEvent(new CustomEvent('open-modal', {
-      detail: this.enableModal ? true : false,
+      detail: this.enableModal,
       bubbles: true,
       composed: true
-    }))
+    }));
   }
-
-  
-
 }
 customElements.define(ModalLit.is, ModalLit);
