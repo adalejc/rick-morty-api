@@ -109,14 +109,11 @@ export class RickMortyApi extends LitElement {
   showCharacter(event) {
     const { detail } = event;
     this.personaje = detail;
-    this.openModal();
+    this.modal();
   }
 
-  openModal() {
-    this.shadowRoot.querySelector('modal-lit').openModal();
+  modal() {
+    this.shadowRoot.querySelector('modal-lit').showAndCloseModal();
   }
-
-  closeModal() {
-    this.shadowRoot.querySelector('modal-lit').closeModal();
-  }
+  
 }

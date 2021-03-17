@@ -7,7 +7,6 @@ export default css`
        margin: 0 auto;
      }
 
-
      .container-cards {
        text-align: center;
      }
@@ -36,10 +35,6 @@ export default css`
 
      .card img {
        width: 90%;
-     }
-
-     modal-lit {
-       z-index: 99;
      }
 
      @media (max-width: 700px) {
