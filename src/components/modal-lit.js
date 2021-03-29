@@ -73,10 +73,10 @@ export class ModalLit extends LitElement {
 
   render() {
     return html`
-      <div id="modal" class="modal-container disabled">
+      <div id="modal" class="modal-container ${this.enableModal ? 'enabled' : 'disabled'}">
         <div id="miModal" class="modal-contenido">
           <div class="close-container">
-            <button class="btn-close" @click="${this.showAndCloseModal}">X</button>
+            <button class="btn-close" @click=${this.showAndCloseModal}>X</button>
           </div>
           <slot></slot>
         </div>
@@ -85,20 +85,11 @@ export class ModalLit extends LitElement {
   }
 
   showAndCloseModal() {
-    const modal = this.shadowRoot.querySelector('.modal-container');
-    if (modal.classList.contains('disabled')) {
-      modal.classList.remove('disabled');
-      modal.classList.add('enabled');
-      this._showEmmitModal(true);
-    } else {
-      modal.classList.remove('enabled');
-      modal.classList.add('disabled');
-      this._showEmmitModal(false);
-    }
+    this._showEmmitModal();
   }
 
-  _showEmmitModal(value) {
-    this.enableModal = value;
+  _showEmmitModal() {
+    this.enableModal = !this.enableModal;
     this.dispatchEvent(new CustomEvent('open-modal', {
       detail: this.enableModal,
       bubbles: true,
