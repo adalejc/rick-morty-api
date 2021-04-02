@@ -16,11 +16,11 @@ export class GetData extends LitElement {
   constructor() {
     super();
     this.apiUrl = "https://rickandmortyapi.com/api/character";
-    this.metho = "GET";
+    this.method = "GET";
   }
 
   getData() {
-    fetch(this.apiUrl, { method: this.metho })
+    fetch(this.apiUrl, { method: this.method })
       .then( response => {
         if (response.ok ) return response.json();
         return Promise.reject(response)
@@ -31,7 +31,7 @@ export class GetData extends LitElement {
 
   getCharacterById(id) {
     const url = `${this.apiUrl}/${id}`;
-    fetch(url, { method: this.metho })
+    fetch(url, { method: this.method })
       .then(response => {
         if (response.ok) return response.json();
         return Promise.reject(response)
