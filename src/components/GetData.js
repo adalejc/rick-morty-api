@@ -42,7 +42,7 @@ export class GetData extends LitElement {
 
   _sendData(customEvent, data) {
     this.dispatchEvent(new CustomEvent(customEvent, {
-      detail: data ,
+      detail: data,
       bubbles: true,
       composed: true
     }));

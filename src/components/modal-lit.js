@@ -71,6 +71,16 @@ export class ModalLit extends LitElement {
     this.enableModal = false;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('show-modal', () => { this.showAndCloseModal() });
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('show-modal', () => { this.showAndCloseModal() })
+  }
+
   render() {
     return html`
       <div id="modal" class="modal-container ${this.enableModal ? 'enabled' : 'disabled'}">

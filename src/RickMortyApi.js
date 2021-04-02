@@ -113,7 +113,12 @@ export class RickMortyApi extends LitElement {
   }
 
   modal() {
-    this.shadowRoot.querySelector('modal-lit').showAndCloseModal();
+    //this.shadowRoot.querySelector('modal-lit').showAndCloseModal();
+    this.dispatchEvent(new CustomEvent('show-modal', {
+      detail: true,
+      bubbles: true,
+      composed: true
+    }));
   }
   
 }
