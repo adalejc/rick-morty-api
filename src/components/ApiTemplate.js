@@ -1,4 +1,4 @@
-import {LitElement, html, css} from 'lit-element';
+import {LitElement, html, css} from 'lit';
 import style from './styles/ApiTemplateStyle'
 
 export class ApiTemplate extends LitElement {
@@ -14,7 +14,7 @@ export class ApiTemplate extends LitElement {
     return html`
       <div class="container" >
         <h1>The <strong class="title">Rick and Morty</strong>API</h1>
-        <p class="title">LitElement</p>
+        <p class="title">Make with Lit</p>
       </div>
     `;
   }
