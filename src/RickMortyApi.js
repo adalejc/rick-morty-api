@@ -3,6 +3,7 @@ import {LitElement, html, css } from 'lit-element';
 import './components/GetData';
 import './components/ApiTemplate';
 import './components/modal-lit';
+import './components/DetailView';
 
 
 import  styles from './components/styles/RickMortyStyle'
@@ -32,8 +33,33 @@ export class RickMortyApi extends LitElement {
     });
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    console.log('add open-modal in window');
+    window.addEventListener('open-modal', this._openModal);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    console.log('remove open-modal in window');
+    window.removeEventListener('open-modal', this._openModal);
+  }
+
+  get api() {
+    return this.shadowRoot.querySelector('get-data');
+  }
+
   firstUpdated() {
-    this.shadowRoot.getElementById('api').getData();
+    this.api.getData();
+  }
+
+  _openModal(event) {
+    const { detail } = event;
+        if (detail) {
+        document.querySelector('body').style.overflow = 'hidden';
+    } else {
+        document.querySelector('body').style.overflow = 'auto';
+    }
   }
 
   _dataFormat(data) {
@@ -50,15 +76,14 @@ export class RickMortyApi extends LitElement {
     });
 
     this.wiky = characters;
-
   }
 
   render() {
     return html`
     <div class="container">
       <get-data id="api" @character="${this.showCharacter}"></get-data>
-      <modal-lit>
-        ${this.getModalTemplate}
+      <modal-lit title="${this.personaje && this.personaje.name || 'Detalles'}">
+        <detail-view .personaje="${this.personaje}"></detail-view>
       </modal-lit>
       <api-template></api-template>
       <div class="container-cards">
@@ -84,26 +109,8 @@ export class RickMortyApi extends LitElement {
 
   getCharacterById(id) {
     if (id) {
-      this.shadowRoot.querySelector('get-data').getCharacterById(id);
+      this.api.getCharacterById(id);
     }
-  }
-
-  get getModalTemplate() {
-    return html`
-      ${this.personaje ? 
-      html`
-        <div>
-          <img src="${this.personaje.image}">
-          <div><strong>Name: </strong><small>${this.personaje.name}</small></div>
-          <div><strong>Status: </strong><small>${this.personaje.status}</small></div>
-          <div><strong>Species: </strong><small>${this.personaje.species}</small></div>
-          <div><strong>Origin: </strong><small>${this.personaje.origin.name}</small></div>
-          <div><strong>Location: </strong><small>${this.personaje.location.name}</small></div>
-          <div><strong>Gender: </strong><small>${this.personaje.gender}</small></div>
-      </div>`:
-      html``  
-    }`;
-    
   }
 
   showCharacter(event) {

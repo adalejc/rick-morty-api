@@ -24,12 +24,13 @@ export class ModalLit extends LitElement {
       padding: var(--modal-contenido-padding, 1rem);
     }
 
-    .close-container {
-      text-align: var(--modal-contenido-close-btn, right);
+    .header-container {
+
     }
 
     .btn-close {
       cursor: var(--modal-contenido-btn-close-cursor, pointer);
+      float: right;
     }
 
     .disabled {
@@ -62,13 +63,15 @@ export class ModalLit extends LitElement {
 
   static get properties() {
     return {
-      enableModal: { type: Boolean }
+      enableModal: { type: Boolean },
+      title: { type: String },
     }
   }
 
   constructor() {
     super();
     this.enableModal = false;
+    this.title = '';
   }
 
   connectedCallback() {
@@ -85,7 +88,8 @@ export class ModalLit extends LitElement {
     return html`
       <div id="modal" class="modal-container ${this.enableModal ? 'enabled' : 'disabled'}">
         <div id="miModal" class="modal-contenido">
-          <div class="close-container">
+          <div class="header-container">
+            <span><strong>${this.title}</strong></span>
             <button class="btn-close" @click=${this.showAndCloseModal}>X</button>
           </div>
           <slot></slot>

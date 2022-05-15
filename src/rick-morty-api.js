@@ -2,6 +2,7 @@ import { RickMortyApi } from './RickMortyApi.js';
 
 customElements.define(RickMortyApi.is, RickMortyApi);
 
+/***
 window.addEventListener('open-modal', event => {
     if (event.detail) {
         document.querySelector('body').style.overflow = 'hidden';
@@ -9,3 +10,4 @@ window.addEventListener('open-modal', event => {
         document.querySelector('body').style.overflow = 'auto';
     }
 });
+**/
